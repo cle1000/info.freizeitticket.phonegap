@@ -88,21 +88,6 @@
 
     <access origin="*" />
 
-    <gap:config-file platform="android" mode="add" parent="/manifest/application/activity">
-      <intent-filter>
-            <action android:name="android.intent.action.VIEW"/>
-            <category android:name="android.intent.category.DEFAULT"/>
-            <category android:name="android.intent.category.BROWSABLE"/>
-            <data android:host="freizeitticket.info">
-            </data>
-            <data android:host="www.freizeitticket.info">
-            </data>
-            <data android:scheme="https"/>
-            <data android:scheme="http"/>
-            <data android:pathPattern="/.*"/>
-        </intent-filter>
-    </gap:config-file>
-
 
     <plugin name="cordova-plugin-whitelist" version="1" />
     <allow-navigation href="https://www.freizeitticket.info/*" />
