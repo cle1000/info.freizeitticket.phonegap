@@ -18,7 +18,18 @@
  */
 
 var browser = null
+var currentURL = "/";
 
+function isFreizeitticket(url){
+    if ( url.indexOf("http://freizeitticket.info") !== -1 ||
+         url.indexOf("https://freizeitticket.info") !== -1 ||
+         url.indexOf("http://www.freizeitticket.info") !== -1 ||
+         url.indexOf("https://www.freizeitticket.info") !== -1 ||
+         url.indexOf("error.html") !== -1){
+        return true;
+    }
+    return false;
+}
 
 var app = {
     // Application Constructor
@@ -40,13 +51,12 @@ var app = {
     onDeviceReady: function() {
         app.startApp();
     },
-
     onDeviceResume: function(){
         if (cordova.platformId != 'android'){
             window.plugins.PushbotsPlugin.resetBadge();
         }
 
-        if (browser != null){
+        if (browser == null){
             browser = app.getBrowser()
         }
     },
@@ -60,20 +70,30 @@ var app = {
         }else{
             localStorage.setItem('platform', 'ios');
         }
-        window.plugins.PushbotsPlugin.initialize("581226b14a9efa67818b4567", {"android":{"sender_id":"576354300081"}});
+        //window.plugins.PhbotsPlugin.initialize("581226b14a9efa67818b4567", {"android":{"sender_id":"576354300081"}});
 
     },
     addEvents: function (browser){
         browser.addEventListener('exit', function (){
             navigator.app.exitApp();
         });
+
+        browser.addEventListener('loadstart', function (e){
+            if (!isFreizeitticket(e.url)){
+                window.open(e.url, '_system', '');
+                browser = cordova.InAppBrowser.open(currentURL, '_blank', "location=no,zoom=no,toolbar=no");
+            }else{
+                currentURL = e.url;
+            }
+        });
+
         return browser;
     },
     getBrowser: function (url){
         if (url != undefined){
             browser = cordova.InAppBrowser.open("error.html", "_blank", "location=no,zoom=no,toolbar=no");
         }else{
-            browser = cordova.InAppBrowser.open("https://www.freizeitticket.info/app.html", "_blank", "location=no,zoom=no,toolbar=no");
+            browser = cordova.InAppBrowser.open("https://www.freizeitticket.info/app.html", '_blank', "location=no,zoom=no,toolbar=no");
         }
         browser = app.addEvents(browser);
         browser.addEventListener('loaderror', function (){
