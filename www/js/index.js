@@ -70,7 +70,7 @@ var app = {
         }else{
             localStorage.setItem('platform', 'ios');
         }
-        //window.plugins.PhbotsPlugin.initialize("581226b14a9efa67818b4567", {"android":{"sender_id":"576354300081"}});
+        window.plugins.PhbotsPlugin.initialize("581226b14a9efa67818b4567", {"android":{"sender_id":"576354300081"}});
 
     },
     addEvents: function (browser){
