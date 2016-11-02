@@ -98,6 +98,7 @@ var app = {
         browser = app.addEvents(browser);
         browser.addEventListener('loaderror', function (){
             app.getBrowser("error");
+            currentURL = "https://www.freizeitticket.info/app.html";
         });
         return browser;
     }
