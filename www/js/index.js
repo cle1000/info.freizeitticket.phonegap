@@ -18,7 +18,7 @@
  */
 
 var browser = null
-var currentURL = "/";
+var currentURL = "https://www.freizeitticket.info/app.html";
 
 function isFreizeitticket(url){
     if ( url.indexOf("http://freizeitticket.info") !== -1 ||
@@ -55,10 +55,7 @@ var app = {
         if (cordova.platformId != 'android'){
             window.plugins.PushbotsPlugin.resetBadge();
         }
-
-        if (browser == null){
-            browser = app.getBrowser()
-        }
+        browser = app.getBrowser()
     },
     startApp:function(){
         app.initPushbots()
@@ -81,7 +78,6 @@ var app = {
         browser.addEventListener('loadstart', function (e){
             if (!isFreizeitticket(e.url)){
                 window.open(e.url, '_system', '');
-                browser = cordova.InAppBrowser.open(currentURL, '_blank', "location=no,zoom=no,toolbar=no");
             }else{
                 currentURL = e.url;
             }
@@ -90,10 +86,10 @@ var app = {
         return browser;
     },
     getBrowser: function (url){
-        if (url != undefined){
+        if (url){
             browser = cordova.InAppBrowser.open("error.html", "_blank", "location=no,zoom=no,toolbar=no");
         }else{
-            browser = cordova.InAppBrowser.open("https://www.freizeitticket.info/app.html", '_blank', "location=no,zoom=no,toolbar=no");
+            browser = cordova.InAppBrowser.open(currentURL, '_blank', "location=no,zoom=no,toolbar=no");
         }
         browser = app.addEvents(browser);
         browser.addEventListener('loaderror', function (){
