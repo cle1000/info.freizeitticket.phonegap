@@ -8,3 +8,9 @@ html *
 {
     font-family: 'Source Sans Pro', sans-serif;
 }
+
+.error-image{
+	width: 300%;
+	max-width: 300px;
+	max-height: 300px;
+}
