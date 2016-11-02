@@ -33,8 +33,8 @@
     <preference name="android-minSdkVersion" value="14" />
     <preference name="android-installLocation" value="auto" />
    
-    <gap:plugin name="cordova-plugin-inappbrowser" source="npm" />
-    <gap:plugin name="pushbots-cordova-plugin" source="npm" />
+    <plugin name="cordova-plugin-inappbrowser" source="npm" />
+    <plugin name="pushbots-cordova-plugin" source="npm" />
     
     <icon src="icon.png" />
 
