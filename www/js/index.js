@@ -51,12 +51,6 @@ var app = {
     onDeviceReady: function() {
         app.startApp();
     },
-    onDeviceResume: function(){
-        if (cordova.platformId != 'android'){
-            window.plugins.PushbotsPlugin.resetBadge();
-        }
-        browser = app.getBrowser()
-    },
     startApp:function(){
         app.initPushbots()
         browser = app.getBrowser()
@@ -75,16 +69,20 @@ var app = {
             navigator.app.exitApp();
         });
 
-        browser.addEventListener('loadstart', function (e){
-            if (!isFreizeitticket(e.url)){
-                window.open(e.url, '_system', '');
-            }else{
-                currentURL = e.url;
-            }
-        });
+        browser.addEventListener('loadstart', this.loadstart);
 
         return browser;
     },
+
+    loadstart: function (e){
+        if (!isFreizeitticket(e.url)){
+            window.open(e.url, '_system', '');
+            location.href = "index.html";
+        }else{
+            currentURL = e.url;
+        }
+    },
+
     getBrowser: function (url){
         if (url){
             browser = cordova.InAppBrowser.open("error.html", "_blank", "location=no,zoom=no,toolbar=no");
